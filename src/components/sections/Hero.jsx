@@ -13,17 +13,18 @@ export default function Hero() {
       id="home"
       className="relative flex flex-col overflow-hidden px-4 sm:px-6 lg:px-8 pt-28 pb-16 sm:pt-36 sm:pb-20"
     >
-      {/* Very subtle background gradient — no orbs, no blobs */}
+      {/* Hero-specific gradient boost — amplifies the global blobs in this section */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse 70% 50% at 50% 0%, color-mix(in oklab, var(--accent) 10%, transparent), transparent)',
+          background:
+            'radial-gradient(ellipse 80% 60% at 50% -5%, color-mix(in oklab, var(--accent) 18%, transparent), transparent)',
         }}
       />
 
-      {/* Dot grid — super subtle */}
+      {/* Dot grid — subtle texture for glass to distort */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.035]"
+        className="absolute inset-0 pointer-events-none opacity-[0.055]"
         style={{
           backgroundImage: 'radial-gradient(var(--accent) 1px, transparent 1px)',
           backgroundSize: '28px 28px',
