@@ -24,18 +24,22 @@ export const siteConfig = {
     {
       icon: "Phone",
       label: "Call Us",
-      value: "+1 (555) 123-4567",
       sub: "Mon–Fri, 9am–6pm",
-      href: "tel:+15551234567",
-      external: false,
+      numbers: [
+        { label: "Sales",   value: "+1 (555) 123-4567", href: "tel:+15551234567" },
+        { label: "Support", value: "+1 (555) 234-5678", href: "tel:+15552345678" },
+        { label: "General", value: "+1 (555) 345-6789", href: "tel:+15553456789" },
+      ],
     },
     {
       icon: "MessageCircle",
       label: "WhatsApp",
-      value: "+1 (555) 123-4567",
       sub: "Chat with us anytime",
-      href: "https://wa.me/15551234567",
       external: true,
+      numbers: [
+        { label: "Sales",   value: "+1 (555) 123-4567", href: "https://wa.me/15551234567" },
+        { label: "Support", value: "+1 (555) 234-5678", href: "https://wa.me/15552345678" },
+      ],
     },
     {
       icon: "MapPin",
