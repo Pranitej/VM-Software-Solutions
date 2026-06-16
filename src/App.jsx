@@ -19,19 +19,19 @@ export default function App() {
       */}
       <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden" aria-hidden="true">
         <div
-          className="absolute -top-40 -left-20 w-[800px] h-[700px] rounded-full opacity-[0.18]"
+          className="ambient-blob absolute -top-40 -left-20 w-[800px] h-[700px] rounded-full opacity-[0.18]"
           style={{ background: 'radial-gradient(circle at 40% 40%, var(--accent) 0%, transparent 60%)' }}
         />
         <div
-          className="absolute top-1/4 right-0 w-[700px] h-[600px] rounded-full opacity-[0.14]"
+          className="ambient-blob absolute top-1/4 right-0 w-[700px] h-[600px] rounded-full opacity-[0.14]"
           style={{ background: 'radial-gradient(circle at 60% 50%, var(--accent-l) 0%, transparent 60%)' }}
         />
         <div
-          className="absolute top-2/3 left-1/4 w-[600px] h-[500px] rounded-full opacity-[0.12]"
+          className="ambient-blob absolute top-2/3 left-1/4 w-[600px] h-[500px] rounded-full opacity-[0.12]"
           style={{ background: 'radial-gradient(circle at 50% 50%, var(--accent) 0%, transparent 60%)' }}
         />
         <div
-          className="absolute bottom-0 right-1/4 w-[500px] h-[400px] rounded-full opacity-[0.10]"
+          className="ambient-blob absolute bottom-0 right-1/4 w-[500px] h-[400px] rounded-full opacity-[0.10]"
           style={{ background: 'radial-gradient(circle at 50% 60%, var(--accent-l) 0%, transparent 60%)' }}
         />
       </div>

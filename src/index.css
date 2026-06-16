@@ -54,35 +54,35 @@
   --bg:       #020817;
   --surface:  #0F172A;
   --surface-2:#1E293B;
-  --border-c: #1E293B;
+  --border-c: #334155;
   --accent:   #6366F1;
   --accent-l: #818CF8;
   --text:     #F1F5F9;
   --muted:    #94A3B8;
-  --subtle:   #475569;
+  --subtle:   #64748B;
   --ring:     rgba(99, 102, 241, 0.22);
 
   /* ── Apple Liquid Glass (dark) ───────────────────────────────── */
-  --glass-bg:       rgba(15, 23, 42, 0.52);
-  --glass-border:   rgba(255, 255, 255, 0.09);
-  --glass-blur:     blur(48px) saturate(180%) brightness(0.94);
+  --glass-bg:       rgba(30, 41, 59, 0.75);
+  --glass-border:   rgba(255, 255, 255, 0.14);
+  --glass-blur:     blur(48px) saturate(180%) brightness(0.96);
   --glass-specular: linear-gradient(
     145deg,
-    rgba(255,255,255,0.10) 0%,
-    rgba(255,255,255,0.03) 38%,
+    rgba(255,255,255,0.12) 0%,
+    rgba(255,255,255,0.04) 38%,
     transparent           62%,
-    rgba(255,255,255,0.02) 100%
+    rgba(255,255,255,0.03) 100%
   );
   --glass-shadow:
-    inset 0  1px 1px rgba(255,255,255,0.09),
+    inset 0  1px 1px rgba(255,255,255,0.12),
     inset 0 -1px 1px rgba(0,0,0,0.22),
-    0  4px 16px rgba(0,0,0,0.22),
-    0 12px 40px rgba(0,0,0,0.32);
+    0  4px 16px rgba(0,0,0,0.28),
+    0 12px 40px rgba(0,0,0,0.40);
   --glass-hover:
-    inset 0  1px 1px rgba(255,255,255,0.14),
+    inset 0  1px 1px rgba(255,255,255,0.18),
     inset 0 -1px 1px rgba(0,0,0,0.28),
-    0  8px 32px rgba(99,102,241,0.24),
-    0 24px 64px rgba(0,0,0,0.36);
+    0  8px 32px rgba(99,102,241,0.28),
+    0 24px 64px rgba(0,0,0,0.44);
 }
 
 /* ─── Tailwind color tokens (inline → CSS-var-backed utilities) ── */
@@ -203,6 +203,15 @@
       radial-gradient(ellipse 55% 45% at 85% 75%, color-mix(in srgb, var(--accent-l) 7%, transparent), transparent),
       var(--surface-2);
   }
+
+  [data-theme="dark"] .section-alt {
+    background:
+      radial-gradient(ellipse 70% 55% at 15% 25%, color-mix(in srgb, var(--accent) 18%, transparent), transparent),
+      radial-gradient(ellipse 55% 45% at 85% 75%, color-mix(in srgb, var(--accent-l) 14%, transparent), transparent),
+      var(--surface-2);
+  }
+
+  [data-theme="dark"] .ambient-blob { opacity: 0.30 !important; }
 
   /* ── Glass pill (hero badge, small tags) ───────────────────────── */
   .glass-pill {
