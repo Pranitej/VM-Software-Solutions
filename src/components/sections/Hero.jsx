@@ -11,12 +11,12 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden"
+      className="relative min-h-screen flex flex-col overflow-hidden px-4 sm:px-6 lg:px-8 pt-28 pb-14 sm:pt-32 sm:pb-16"
     >
       {/* Background elements */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Radial gradient center */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/8 rounded-full blur-[120px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] max-w-[90vw] bg-accent/8 rounded-full blur-[120px]" />
         {/* Top-right glow */}
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-accent-light/5 rounded-full blur-[100px]" />
         {/* Bottom-left glow */}
@@ -38,11 +38,11 @@ export default function Hero() {
         <div className="absolute top-2/3 right-[25%] w-2 h-2 bg-accent-light rounded-full opacity-25 animate-float" style={{ animationDelay: '1s' }} />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-5xl mx-auto text-center">
+      {/* Main content — grows to fill and centers vertically */}
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center w-full max-w-5xl mx-auto text-center">
         {/* Badge */}
-        <div className="animate-fade-in inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent/25 bg-accent/8 text-accent-light text-xs font-medium tracking-widest uppercase mb-8">
-          <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+        <div className="animate-fade-in inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent/25 bg-accent/8 text-accent-light text-[10px] sm:text-xs font-medium tracking-widest uppercase mb-8">
+          <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse shrink-0" />
           Transforming Businesses with Innovative Software
         </div>
 
@@ -58,7 +58,7 @@ export default function Hero() {
 
         {/* Subtitle */}
         <p
-          className="text-muted text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto mb-10 animate-fade-up"
+          className="text-muted text-base sm:text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-10 animate-fade-up"
           style={{ animationDelay: '0.2s' }}
         >
           {siteConfig.company.description}
@@ -66,21 +66,21 @@ export default function Hero() {
 
         {/* CTA buttons */}
         <div
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-fade-up"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto mb-14 sm:mb-16 animate-fade-up"
           style={{ animationDelay: '0.3s' }}
         >
-          <Button size="lg" onClick={() => handleNav('#contact')}>
+          <Button size="lg" className="w-full sm:w-auto" onClick={() => handleNav('#contact')}>
             Start Your Project
             <ArrowRight className="w-4 h-4" />
           </Button>
-          <Button size="lg" variant="outline" onClick={() => handleNav('#portfolio')}>
+          <Button size="lg" variant="outline" className="w-full sm:w-auto" onClick={() => handleNav('#portfolio')}>
             View Our Work
           </Button>
         </div>
 
         {/* Stats */}
         <div
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 max-w-3xl mx-auto animate-fade-up"
+          className="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 sm:gap-8 w-full max-w-3xl mx-auto animate-fade-up"
           style={{ animationDelay: '0.4s' }}
         >
           {siteConfig.stats.map((stat) => (
@@ -92,22 +92,27 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Trusted by */}
-      <div className="absolute bottom-24 left-0 right-0 px-4 animate-fade-in" style={{ animationDelay: '0.6s' }}>
-        <p className="text-center text-subtle text-xs font-medium tracking-widest uppercase mb-4">Trusted by industry leaders</p>
-        <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 max-w-3xl mx-auto">
+      {/* Trusted by — in normal flow, always below content */}
+      <div className="relative z-10 mt-16 sm:mt-20 w-full animate-fade-in" style={{ animationDelay: '0.6s' }}>
+        <p className="text-center text-subtle text-[10px] sm:text-xs font-medium tracking-widest uppercase mb-5">
+          Trusted by industry leaders
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 sm:gap-x-10 max-w-3xl mx-auto">
           {siteConfig.trustedBy.map((company) => (
-            <span key={company} className="text-subtle/60 font-semibold text-sm sm:text-base tracking-wide hover:text-muted transition-colors">
+            <span
+              key={company}
+              className="text-subtle/60 font-semibold text-sm sm:text-base tracking-wide hover:text-muted transition-colors"
+            >
               {company}
             </span>
           ))}
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator — desktop only, where there is room */}
       <button
         onClick={() => handleNav('#services')}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-subtle hover:text-muted transition-colors cursor-pointer animate-fade-in"
+        className="hidden lg:flex absolute bottom-6 left-1/2 -translate-x-1/2 flex-col items-center gap-2 text-subtle hover:text-muted transition-colors cursor-pointer animate-fade-in"
         style={{ animationDelay: '0.8s' }}
       >
         <span className="text-[10px] tracking-widest uppercase">Scroll</span>
