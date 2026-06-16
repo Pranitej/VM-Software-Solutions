@@ -1,4 +1,4 @@
-import { Target, Eye, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Target, Eye, CheckCircle2, ArrowRight, Users } from 'lucide-react';
 import { siteConfig } from '../../config';
 import { useReveal } from '../../hooks/useReveal';
 import SectionHeader from '../ui/SectionHeader';
@@ -58,6 +58,7 @@ export default function About() {
         <div ref={h1} className={['reveal', v1 ? 'visible' : ''].join(' ')}>
           <SectionHeader
             badge="About Us"
+            badgeIcon={Users}
             title="Driving Digital Transformation"
             subtitle={`Founded in ${siteConfig.company.founded}, VM Software Solutions is led by industry pioneers who combine technical expertise with business insight.`}
           />

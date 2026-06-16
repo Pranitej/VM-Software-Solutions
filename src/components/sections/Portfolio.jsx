@@ -1,4 +1,4 @@
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, Briefcase } from 'lucide-react';
 import { siteConfig } from '../../config';
 import { useReveal } from '../../hooks/useReveal';
 import SectionHeader from '../ui/SectionHeader';
@@ -61,6 +61,7 @@ export default function Portfolio() {
         <div ref={ref} className={['reveal', visible ? 'visible' : ''].join(' ')}>
           <SectionHeader
             badge="Our Work"
+            badgeIcon={Briefcase}
             title="Featured Projects"
             subtitle="Explore our portfolio of innovative software solutions that deliver real business value."
           />

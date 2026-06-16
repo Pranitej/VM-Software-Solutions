@@ -1,10 +1,10 @@
 import Badge from './Badge';
 
-export default function SectionHeader({ badge, title, subtitle, centered = true, className = '' }) {
+export default function SectionHeader({ badge, badgeIcon, title, subtitle, centered = true, className = '' }) {
   return (
     <div className={['mb-14', centered ? 'text-center' : '', className].join(' ')}>
       {badge && (
-        <Badge className="mb-4 inline-flex">
+        <Badge icon={badgeIcon} className="mb-5 inline-flex">
           {badge}
         </Badge>
       )}
