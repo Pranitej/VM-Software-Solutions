@@ -2,6 +2,7 @@ export const siteConfig = {
   company: {
     name: "VM Software Solutions",
     tagline: "Enterprise Software Solutions That Scale",
+    heroBadge: "Award-Winning Software Studio",
     description: "We craft cutting-edge software solutions that drive digital transformation, optimize operations, and accelerate business growth for enterprises worldwide.",
     shortDescription: "We transform businesses with cutting-edge software solutions, delivering innovation and excellence.",
     founded: "2018",

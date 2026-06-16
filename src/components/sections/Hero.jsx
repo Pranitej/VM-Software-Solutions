@@ -33,9 +33,9 @@ export default function Hero() {
       {/* Main content */}
       <div className="relative z-10 max-w-4xl mx-auto w-full text-center flex flex-col items-center">
         {/* Badge */}
-        <div className="animate-fade-in inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent/25 bg-accent/8 text-accent text-xs font-semibold tracking-widest uppercase mb-8">
+        <div className="animate-fade-in inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent/25 bg-accent/8 text-accent text-xs font-semibold tracking-widest uppercase mb-8 whitespace-nowrap">
           <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse shrink-0" />
-          Transforming Businesses with Innovative Software
+          {siteConfig.company.heroBadge}
         </div>
 
         {/* Headline */}
