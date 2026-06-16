@@ -1,43 +1,91 @@
 @import "tailwindcss";
 
 /* ─── Runtime theme tokens ─────────────────────────────────────────
-   These live on :root (light) and [data-theme="dark"].
-   We use @theme inline so Tailwind utilities reference CSS vars at
-   runtime — enabling hot-swappable theming without a rebuild.
+   :root = light, [data-theme="dark"] = dark.
+   @theme inline keeps these as CSS vars at runtime (hot-swap theming).
 ──────────────────────────────────────────────────────────────────── */
 :root {
   color-scheme: light;
-  --bg:          #F8FAFC;
-  --surface:     #FFFFFF;
-  --surface-2:   #F1F5F9;
-  --border-c:    #E2E8F0;
-  --accent:      #4F46E5;
-  --accent-l:    #6366F1;
-  --text:        #0F172A;
-  --muted:       #475569;
-  --subtle:      #94A3B8;
-  --ring:        rgba(79, 70, 229, 0.18);
-  --card-shadow: 0 1px 3px rgba(15,23,42,.04), 0 4px 20px rgba(15,23,42,.07);
-  --card-hover:  0 8px 32px rgba(79,70,229,.13);
+
+  /* Palette */
+  --bg:       #EEF2FF;
+  --surface:  #FFFFFF;
+  --surface-2:#E0E7FF;
+  --border-c: #C7D2FE;
+  --accent:   #4F46E5;
+  --accent-l: #6366F1;
+  --text:     #0F172A;
+  --muted:    #475569;
+  --subtle:   #94A3B8;
+  --ring:     rgba(79, 70, 229, 0.18);
+
+  /* ── Apple Liquid Glass (light) ───────────────────────────────── */
+  /* Core glass surface — low opacity so background bleeds through   */
+  --glass-bg:       rgba(255, 255, 255, 0.38);
+  /* Rim highlight — top-left edge catches the light                 */
+  --glass-border:   rgba(255, 255, 255, 0.60);
+  /* Blur + saturation boost replicates thick optical glass          */
+  --glass-blur:     blur(48px) saturate(220%) brightness(1.04);
+  /* Diagonal specular streak across the glass face                  */
+  --glass-specular: linear-gradient(
+    145deg,
+    rgba(255,255,255,0.28) 0%,
+    rgba(255,255,255,0.10) 38%,
+    rgba(255,255,255,0.03) 62%,
+    rgba(255,255,255,0.06) 100%
+  );
+  /* Layered shadows: inner rim light + outer depth                  */
+  --glass-shadow:
+    inset 0  1px 1px rgba(255,255,255,0.75),
+    inset 0 -1px 1px rgba(0,0,0,0.04),
+    0  4px 16px rgba(15,23,42,0.07),
+    0 12px 40px rgba(15,23,42,0.10);
+  --glass-hover:
+    inset 0  1px 1px rgba(255,255,255,0.85),
+    inset 0 -1px 1px rgba(0,0,0,0.05),
+    0  8px 32px rgba(79,70,229,0.18),
+    0 24px 64px rgba(15,23,42,0.12);
 }
 
 [data-theme="dark"] {
   color-scheme: dark;
-  --bg:          #020817;
-  --surface:     #0F172A;
-  --surface-2:   #1E293B;
-  --border-c:    #1E293B;
-  --accent:      #6366F1;
-  --accent-l:    #818CF8;
-  --text:        #F1F5F9;
-  --muted:       #94A3B8;
-  --subtle:      #475569;
-  --ring:        rgba(99, 102, 241, 0.22);
-  --card-shadow: none;
-  --card-hover:  0 8px 32px rgba(99,102,241,.16);
+
+  /* Palette */
+  --bg:       #020817;
+  --surface:  #0F172A;
+  --surface-2:#1E293B;
+  --border-c: #1E293B;
+  --accent:   #6366F1;
+  --accent-l: #818CF8;
+  --text:     #F1F5F9;
+  --muted:    #94A3B8;
+  --subtle:   #475569;
+  --ring:     rgba(99, 102, 241, 0.22);
+
+  /* ── Apple Liquid Glass (dark) ───────────────────────────────── */
+  --glass-bg:       rgba(15, 23, 42, 0.52);
+  --glass-border:   rgba(255, 255, 255, 0.09);
+  --glass-blur:     blur(48px) saturate(180%) brightness(0.94);
+  --glass-specular: linear-gradient(
+    145deg,
+    rgba(255,255,255,0.10) 0%,
+    rgba(255,255,255,0.03) 38%,
+    transparent           62%,
+    rgba(255,255,255,0.02) 100%
+  );
+  --glass-shadow:
+    inset 0  1px 1px rgba(255,255,255,0.09),
+    inset 0 -1px 1px rgba(0,0,0,0.22),
+    0  4px 16px rgba(0,0,0,0.22),
+    0 12px 40px rgba(0,0,0,0.32);
+  --glass-hover:
+    inset 0  1px 1px rgba(255,255,255,0.14),
+    inset 0 -1px 1px rgba(0,0,0,0.28),
+    0  8px 32px rgba(99,102,241,0.24),
+    0 24px 64px rgba(0,0,0,0.36);
 }
 
-/* ─── Tailwind color tokens (backed by CSS vars → runtime theming) ── */
+/* ─── Tailwind color tokens (inline → CSS-var-backed utilities) ── */
 @theme inline {
   --color-base:         var(--bg);
   --color-surface:      var(--surface);
@@ -90,7 +138,8 @@
 
 /* ─── Components ────────────────────────────────────────────────── */
 @layer components {
-  /* Scroll reveal */
+
+  /* ── Scroll reveal ─────────────────────────────────────────────── */
   .reveal {
     opacity: 0;
     transform: translateY(22px);
@@ -98,23 +147,46 @@
   }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  /* Glass card — frosted glass morphism, theme-aware */
+  /* ── Apple Liquid Glass card ───────────────────────────────────── */
+  /*
+    Three-layer recipe:
+    1. backdrop-filter: heavy blur + saturation boost (the "glass thickness")
+    2. Semi-transparent background (lets the blurred backdrop show through)
+    3. ::after diagonal specular (the light catching on the glass face)
+    4. Multi-stop inset box-shadow (rim highlight top, subtle shadow bottom)
+  */
   .card {
-    background: color-mix(in srgb, var(--surface) 78%, transparent);
-    backdrop-filter: blur(20px) saturate(160%);
-    -webkit-backdrop-filter: blur(20px) saturate(160%);
-    border: 1px solid color-mix(in srgb, var(--border-c) 60%, transparent);
-    border-radius: 1rem;
-    box-shadow: var(--card-shadow), inset 0 1px 0 rgba(255,255,255,0.08);
-    transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
-  }
-  .card:hover {
-    box-shadow: var(--card-hover), inset 0 1px 0 rgba(255,255,255,0.12);
-    border-color: color-mix(in srgb, var(--accent) 35%, var(--border-c));
-    transform: translateY(-2px);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 1.25rem;
+    box-shadow: var(--glass-shadow);
+    position: relative;
+    overflow: hidden;
+    transition:
+      transform  0.35s cubic-bezier(0.34, 1.4, 0.64, 1),
+      box-shadow 0.35s ease,
+      border-color 0.35s ease;
   }
 
-  /* Gradient heading text */
+  /* Diagonal specular highlight — simulates convex glass surface */
+  .card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--glass-specular);
+    pointer-events: none;
+  }
+
+  .card:hover {
+    transform: translateY(-4px) scale(1.008);
+    box-shadow: var(--glass-hover);
+    border-color: color-mix(in srgb, var(--glass-border) 45%, var(--accent-l) 55%);
+  }
+
+  /* ── Gradient heading ──────────────────────────────────────────── */
   .gradient-text {
     background: linear-gradient(135deg, #4F46E5 0%, #6366F1 45%, #818CF8 100%);
     -webkit-background-clip: text;
@@ -123,21 +195,34 @@
     color: transparent;
   }
 
+  /* ── Section alt background ─────────────────────────────────────
+     Richer gradient gives glass cards more to blur through          */
   .section-alt {
-    background: linear-gradient(
-      160deg,
-      color-mix(in srgb, var(--surface-2) 97%, var(--accent)) 0%,
-      var(--surface-2) 50%,
-      color-mix(in srgb, var(--surface-2) 96%, var(--accent-l)) 100%
-    );
+    background:
+      radial-gradient(ellipse 70% 55% at 15% 25%, color-mix(in srgb, var(--accent) 8%, transparent), transparent),
+      radial-gradient(ellipse 55% 45% at 85% 75%, color-mix(in srgb, var(--accent-l) 7%, transparent), transparent),
+      var(--surface-2);
   }
 
-  /* Glass pill — for badges, hero pill, etc. */
+  /* ── Glass pill (hero badge, small tags) ───────────────────────── */
   .glass-pill {
-    background: color-mix(in srgb, var(--surface) 60%, transparent);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid color-mix(in srgb, var(--border-c) 55%, transparent);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.1);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    box-shadow:
+      inset 0 1px 1px rgba(255,255,255,0.50),
+      0 2px 12px rgba(0,0,0,0.08);
+  }
+
+  /* ── Glass nav bar (header on scroll) ─────────────────────────── */
+  .glass-nav {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.40),
+      0 4px 24px rgba(0,0,0,0.08);
   }
 }
