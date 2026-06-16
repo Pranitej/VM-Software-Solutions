@@ -1,122 +1,128 @@
 @import "tailwindcss";
 
-@theme {
-  --color-base: #030712;
-  --color-surface: #0F172A;
-  --color-surface-2: #162032;
-  --color-border: #1E293B;
-  --color-accent: #6366F1;
-  --color-accent-light: #818CF8;
-  --color-text: #F8FAFC;
-  --color-muted: #94A3B8;
-  --color-subtle: #64748B;
+/* ─── Runtime theme tokens ─────────────────────────────────────────
+   These live on :root (light) and [data-theme="dark"].
+   We use @theme inline so Tailwind utilities reference CSS vars at
+   runtime — enabling hot-swappable theming without a rebuild.
+──────────────────────────────────────────────────────────────────── */
+:root {
+  color-scheme: light;
+  --bg:          #F0EAFF;
+  --surface:     #FFFFFF;
+  --surface-2:   #E8DEFF;
+  --border-c:    #D8CCFF;
+  --accent:      #7C3AED;
+  --accent-l:    #9061F9;
+  --text:        #1A0845;
+  --muted:       #5E4F80;
+  --subtle:      #9385B0;
+  --ring:        rgba(124, 58, 237, 0.25);
+  --card-shadow: 0 1px 3px rgba(26,8,69,.05), 0 8px 24px rgba(26,8,69,.08);
+  --card-hover:  0 4px 32px rgba(124,58,237,.16);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg:          #07030F;
+  --surface:     #100820;
+  --surface-2:   #1A1030;
+  --border-c:    #2E1E50;
+  --accent:      #9061F9;
+  --accent-l:    #A78BFA;
+  --text:        #EDE8FF;
+  --muted:       #B0A0D8;
+  --subtle:      #6E5F90;
+  --ring:        rgba(144, 97, 249, 0.3);
+  --card-shadow: none;
+  --card-hover:  0 4px 32px rgba(144,97,249,.2);
+}
+
+/* ─── Tailwind color tokens (backed by CSS vars → runtime theming) ── */
+@theme inline {
+  --color-base:         var(--bg);
+  --color-surface:      var(--surface);
+  --color-surface-2:    var(--surface-2);
+  --color-border:       var(--border-c);
+  --color-accent:       var(--accent);
+  --color-accent-light: var(--accent-l);
+  --color-text:         var(--text);
+  --color-muted:        var(--muted);
+  --color-subtle:       var(--subtle);
 
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 
-  --animate-fade-up: fade-up 0.6s ease forwards;
-  --animate-fade-in: fade-in 0.5s ease forwards;
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-shimmer: shimmer 2.5s linear infinite;
-  --animate-spin-slow: spin 8s linear infinite;
+  --animate-fade-up:  fade-up 0.55s ease both;
+  --animate-fade-in:  fade-in 0.45s ease both;
+  --animate-float:    float 6s ease-in-out infinite;
 }
 
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(28px); }
+  from { opacity: 0; transform: translateY(22px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes fade-in {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
-
 @keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  33%       { transform: translateY(-10px) rotate(1deg); }
-  66%       { transform: translateY(-6px) rotate(-1deg); }
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
 }
 
-@keyframes shimmer {
-  0%   { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-
-/*
-  Base element styles MUST live inside @layer base so Tailwind utilities
-  (which live in @layer utilities) can override them. Tailwind v4's
-  Preflight already applies box-sizing: border-box and margin/padding: 0
-  to every element inside @layer base, so we deliberately do NOT add an
-  unlayered `* { margin: 0; padding: 0 }` reset — doing so would beat all
-  spacing utilities and break every layout.
-*/
+/* ─── Base ──────────────────────────────────────────────────────── */
 @layer base {
-  html {
-    scroll-behavior: smooth;
-    background-color: var(--color-base);
-  }
+  html { scroll-behavior: smooth; }
 
   body {
     font-family: var(--font-sans);
-    background-color: var(--color-base);
-    color: var(--color-text);
+    background-color: var(--bg);
+    color: var(--text);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
 
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
-  ::-webkit-scrollbar-track {
-    background: var(--color-surface);
-  }
-  ::-webkit-scrollbar-thumb {
-    background: var(--color-accent);
-    border-radius: 3px;
-  }
+  ::-webkit-scrollbar       { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
 }
 
+/* ─── Components ────────────────────────────────────────────────── */
 @layer components {
+  /* Scroll reveal */
   .reveal {
     opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transform: translateY(22px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
   }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* Card — theme-aware shadow (light) or border (dark) */
+  .card {
+    background-color: var(--surface);
+    border: 1px solid var(--border-c);
+    border-radius: 1rem;
+    box-shadow: var(--card-shadow);
+    transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+  .card:hover {
+    box-shadow: var(--card-hover);
+    border-color: var(--accent-l);
+    transform: translateY(-2px);
   }
 
+  /* Gradient heading text */
   .gradient-text {
-    background: linear-gradient(135deg, #818CF8 0%, #6366F1 50%, #A5B4FC 100%);
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-l) 60%, #C4B5FD 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     color: transparent;
   }
 
-  .gradient-border {
-    position: relative;
-  }
-  .gradient-border::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(135deg, rgba(99,102,241,0.5), rgba(129,140,248,0.1), rgba(99,102,241,0.5));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-  }
-
-  .glow {
-    box-shadow: 0 0 40px rgba(99,102,241,0.15), 0 0 80px rgba(99,102,241,0.05);
-  }
-
-  .noise-bg {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  /* Subtle noise texture overlay (optional, very faint) */
+  .section-alt {
+    background-color: var(--surface-2);
   }
 }
