@@ -52,39 +52,38 @@
 
   /* Palette */
   --bg:       #020817;
-  --surface:  #0F172A;
-  --surface-2:#1E293B;
-  --border-c: #334155;
-  --accent:   #6366F1;
-  --accent-l: #818CF8;
-  --text:     #F1F5F9;
+  --surface:  #080F1E;
+  --surface-2:#0D1628;
+  --border-c: #1A2640;
+  --accent:   #7C7FFF;
+  --accent-l: #A5B4FC;
+  --text:     #F8FAFC;
   --muted:    #94A3B8;
-  --subtle:   #64748B;
-  --ring:     rgba(99, 102, 241, 0.22);
+  --subtle:   #4B5E7A;
+  --ring:     rgba(124, 127, 255, 0.28);
 
-  /* ── Apple Liquid Glass (dark) ───────────────────────────────── */
-  --glass-bg:       rgba(22, 33, 55, 0.97);
-  --glass-border:   rgba(255, 255, 255, 0.10);
-  --glass-blur:     blur(48px) saturate(160%) brightness(1.0);
+  /*
+    Dark mode: solid elevated surfaces instead of glass transparency.
+    backdrop-filter on near-black blurs nothing visible — produces flat grey.
+    Crisp dark card + accent border ring + depth shadow = premium contrast.
+  */
+  --glass-bg:       #0D1628;
+  --glass-border:   rgba(124, 127, 255, 0.20);
+  --glass-blur:     none;
   --glass-specular: linear-gradient(
     145deg,
-    rgba(255,255,255,0.08) 0%,
-    rgba(255,255,255,0.03) 38%,
-    transparent           62%,
-    rgba(255,255,255,0.02) 100%
+    rgba(124,127,255,0.06) 0%,
+    transparent 50%
   );
   --glass-shadow:
-    inset 0  1px 0   rgba(255,255,255,0.08),
-    inset 0 -1px 0   rgba(0,0,0,0.30),
-    0  2px  8px rgba(0,0,0,0.40),
-    0  8px 32px rgba(0,0,0,0.50),
-    0  0   0   1px  rgba(99,102,241,0.12);
+    0 0 0 1px rgba(124,127,255,0.14),
+    0 2px 8px  rgba(0,0,0,0.55),
+    0 8px 24px rgba(0,0,0,0.45);
   --glass-hover:
-    inset 0  1px 0   rgba(255,255,255,0.12),
-    inset 0 -1px 0   rgba(0,0,0,0.30),
-    0  8px 32px rgba(99,102,241,0.22),
-    0 20px 56px rgba(0,0,0,0.55),
-    0  0   0   1px  rgba(99,102,241,0.28);
+    0 0 0 1px rgba(124,127,255,0.45),
+    0 0 20px  rgba(124,127,255,0.12),
+    0 8px 32px rgba(0,0,0,0.60),
+    0 24px 56px rgba(0,0,0,0.50);
 }
 
 /* ─── Tailwind color tokens (inline → CSS-var-backed utilities) ── */
@@ -208,12 +207,12 @@
 
   [data-theme="dark"] .section-alt {
     background:
-      radial-gradient(ellipse 70% 55% at 15% 25%, color-mix(in srgb, var(--accent) 18%, transparent), transparent),
-      radial-gradient(ellipse 55% 45% at 85% 75%, color-mix(in srgb, var(--accent-l) 14%, transparent), transparent),
+      radial-gradient(ellipse 70% 55% at 15% 25%, color-mix(in srgb, var(--accent) 14%, transparent), transparent),
+      radial-gradient(ellipse 55% 45% at 85% 75%, color-mix(in srgb, var(--accent-l) 10%, transparent), transparent),
       var(--surface-2);
   }
 
-  [data-theme="dark"] .ambient-blob { opacity: 0.30 !important; }
+  [data-theme="dark"] .ambient-blob { opacity: 0.22 !important; }
 
   /* ── Glass pill (hero badge, small tags) ───────────────────────── */
   .glass-pill {
@@ -227,11 +226,6 @@
   }
 
   /* ── Glass nav bar (header on scroll) ─────────────────────────── */
-  /*
-    Nav uses a much higher opacity than cards so text stays legible.
-    Glass effect is still visible (blur + saturation) but the surface
-    is 88% opaque — enough contrast for nav links to read clearly.
-  */
   .glass-nav {
     background: color-mix(in srgb, var(--surface) 88%, transparent);
     backdrop-filter: blur(24px) saturate(180%);
@@ -240,6 +234,12 @@
     box-shadow:
       inset 0 1px 0 rgba(255,255,255,0.50),
       0 4px 24px rgba(0,0,0,0.10);
+  }
+
+  [data-theme="dark"] .glass-nav {
+    background: rgba(8, 15, 30, 0.92);
+    border-bottom-color: rgba(124,127,255,0.15);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.40);
   }
 
   /* ── Mobile menu panel ─────────────────────────────────────────── */
@@ -251,5 +251,11 @@
     box-shadow:
       inset 0 1px 0 rgba(255,255,255,0.60),
       0 16px 48px rgba(0,0,0,0.18);
+  }
+
+  [data-theme="dark"] .glass-menu {
+    background: #080F1E;
+    border-color: rgba(124,127,255,0.18);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.60);
   }
 }
