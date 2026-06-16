@@ -108,7 +108,7 @@ export default function About() {
             {siteConfig.specialties.map((spec) => (
               <span
                 key={spec}
-                className="px-5 py-2 rounded-full border border-border bg-surface text-sm font-medium text-muted hover:border-accent hover:text-accent hover:bg-accent/5 transition-all duration-200 cursor-default"
+                className="px-5 py-2 rounded-full border border-border bg-surface-2 text-sm font-medium text-muted hover:border-accent hover:text-accent hover:bg-accent/10 transition-all duration-200 cursor-default"
               >
                 {spec}
               </span>
