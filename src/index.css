@@ -98,17 +98,19 @@
   }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  /* Card — theme-aware shadow (light) or border (dark) */
+  /* Glass card — frosted glass morphism, theme-aware */
   .card {
-    background-color: var(--surface);
-    border: 1px solid var(--border-c);
+    background: color-mix(in srgb, var(--surface) 78%, transparent);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid color-mix(in srgb, var(--border-c) 60%, transparent);
     border-radius: 1rem;
-    box-shadow: var(--card-shadow);
-    transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    box-shadow: var(--card-shadow), inset 0 1px 0 rgba(255,255,255,0.08);
+    transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
   }
   .card:hover {
-    box-shadow: var(--card-hover);
-    border-color: var(--accent-l);
+    box-shadow: var(--card-hover), inset 0 1px 0 rgba(255,255,255,0.12);
+    border-color: color-mix(in srgb, var(--accent) 35%, var(--border-c));
     transform: translateY(-2px);
   }
 
@@ -121,8 +123,21 @@
     color: transparent;
   }
 
-  /* Subtle noise texture overlay (optional, very faint) */
   .section-alt {
-    background-color: var(--surface-2);
+    background: linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--surface-2) 97%, var(--accent)) 0%,
+      var(--surface-2) 50%,
+      color-mix(in srgb, var(--surface-2) 96%, var(--accent-l)) 100%
+    );
+  }
+
+  /* Glass pill — for badges, hero pill, etc. */
+  .glass-pill {
+    background: color-mix(in srgb, var(--surface) 60%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid color-mix(in srgb, var(--border-c) 55%, transparent);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.1);
   }
 }

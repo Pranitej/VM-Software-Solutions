@@ -33,7 +33,7 @@ export default function Hero() {
       {/* Main content */}
       <div className="relative z-10 max-w-4xl mx-auto w-full text-center flex flex-col items-center">
         {/* Badge */}
-        <div className="animate-fade-in inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent/25 bg-accent/8 text-accent text-xs font-semibold tracking-widest uppercase mb-8 whitespace-nowrap">
+        <div className="animate-fade-in glass-pill inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-accent text-xs font-semibold tracking-widest uppercase mb-8 whitespace-nowrap">
           <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse shrink-0" />
           {siteConfig.company.heroBadge}
         </div>
@@ -70,35 +70,35 @@ export default function Hero() {
           </Button>
         </div>
 
-        {/* Stats */}
+        {/* Stats — wrapped in glass card */}
         <div
-          className="grid grid-cols-2 sm:grid-cols-4 gap-8 w-full max-w-2xl mx-auto animate-fade-up"
+          className="card w-full max-w-2xl mx-auto px-6 py-6 sm:px-8 animate-fade-up"
           style={{ animationDelay: '0.32s' }}
         >
-          {siteConfig.stats.map((stat) => (
-            <div key={stat.label} className="flex flex-col gap-1 text-center">
-              <span className="text-3xl sm:text-4xl font-black text-text">{stat.value}</span>
-              <span className="text-xs text-subtle font-medium tracking-wide leading-tight">{stat.label}</span>
-            </div>
-          ))}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+            {siteConfig.stats.map((stat) => (
+              <div key={stat.label} className="flex flex-col gap-1 text-center">
+                <span className="text-2xl sm:text-3xl font-black text-text">{stat.value}</span>
+                <span className="text-xs text-subtle font-medium tracking-wide leading-tight">{stat.label}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Trusted by — in normal flow */}
-      <div className="relative z-10 mt-16 sm:mt-20 w-full max-w-3xl mx-auto animate-fade-in" style={{ animationDelay: '0.48s' }}>
-        <div className="flex items-center gap-4 mb-5">
-          <div className="flex-1 h-px bg-border" />
-          <p className="text-subtle text-[10px] sm:text-xs font-semibold tracking-widest uppercase whitespace-nowrap">
+      {/* Trusted by — glass card */}
+      <div className="relative z-10 mt-8 w-full max-w-3xl mx-auto animate-fade-in" style={{ animationDelay: '0.48s' }}>
+        <div className="card px-6 py-5">
+          <p className="text-center text-subtle text-[10px] font-bold tracking-widest uppercase mb-4">
             Trusted by industry leaders
           </p>
-          <div className="flex-1 h-px bg-border" />
-        </div>
-        <div className="flex flex-wrap items-center justify-center gap-x-7 gap-y-3 sm:gap-x-10">
-          {siteConfig.trustedBy.map((company) => (
-            <span key={company} className="text-subtle font-semibold text-sm tracking-wide hover:text-muted transition-colors">
-              {company}
-            </span>
-          ))}
+          <div className="flex flex-wrap items-center justify-center gap-x-7 gap-y-2 sm:gap-x-10">
+            {siteConfig.trustedBy.map((company) => (
+              <span key={company} className="text-subtle font-bold text-sm tracking-wide hover:text-muted transition-colors">
+                {company}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 

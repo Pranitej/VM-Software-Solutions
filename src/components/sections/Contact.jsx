@@ -1,98 +1,86 @@
-import { useState } from 'react';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import { siteConfig } from '../../config';
 import { useReveal } from '../../hooks/useReveal';
 import SectionHeader from '../ui/SectionHeader';
-import Button from '../ui/Button';
-import Input from '../ui/Input';
-import Textarea from '../ui/Textarea';
 
-const contactCards = [
-  { icon: Mail,   label: 'Email',  value: siteConfig.company.email,         sub: `Response ${siteConfig.company.emailResponse}` },
-  { icon: Phone,  label: 'Phone',  value: siteConfig.company.phone,         sub: siteConfig.company.phoneHours },
-  { icon: MapPin, label: 'Office', value: siteConfig.company.headquarters,  sub: 'Visit our headquarters' },
-];
+function ContactCard({ method, index }) {
+  const { ref, visible } = useReveal(0.1);
+  const Icon = LucideIcons[method.icon] || LucideIcons.Mail;
+
+  return (
+    <a
+      ref={ref}
+      href={method.href}
+      target={method.external ? '_blank' : undefined}
+      rel={method.external ? 'noopener noreferrer' : undefined}
+      className={[
+        'reveal card group flex items-center gap-5 p-6 cursor-pointer no-underline',
+        visible ? 'visible' : '',
+      ].join(' ')}
+      style={{ transitionDelay: `${index * 80}ms` }}
+    >
+      {/* Icon */}
+      <div className="w-13 h-13 rounded-2xl bg-accent/10 border border-accent/15 flex items-center justify-center shrink-0 group-hover:bg-accent group-hover:border-accent group-hover:scale-110 transition-all duration-300">
+        <Icon className="w-5 h-5 text-accent group-hover:text-white transition-colors duration-300" />
+      </div>
+
+      {/* Text */}
+      <div className="flex-1 min-w-0">
+        <p className="text-[10px] font-bold text-subtle uppercase tracking-widest mb-1">{method.label}</p>
+        <p className="text-sm sm:text-base font-semibold text-text group-hover:text-accent transition-colors truncate">
+          {method.value}
+        </p>
+        <p className="text-xs text-muted mt-0.5">{method.sub}</p>
+      </div>
+
+      {/* Arrow */}
+      <ArrowUpRight className="w-4 h-4 text-subtle group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200 shrink-0" />
+    </a>
+  );
+}
 
 export default function Contact() {
   const { ref, visible } = useReveal(0.1);
-  const [form, setForm] = useState({ name: '', email: '', company: '', message: '' });
-  const [sent, setSent] = useState(false);
-
-  const handleChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
-  const handleSubmit = (e) => { e.preventDefault(); setSent(true); };
 
   return (
     <section id="contact" className="py-24 sm:py-28 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <div ref={ref} className={['reveal', visible ? 'visible' : ''].join(' ')}>
           <SectionHeader
             badge="Get In Touch"
             title="Let's Build Together"
-            subtitle="Ready to transform your business? Contact us for a free consultation."
+            subtitle="Reach out through any channel below — we'd love to hear about your project."
           />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-          {/* Contact info */}
-          <div className="lg:col-span-2 flex flex-col gap-4">
-            {contactCards.map(({ icon: Icon, label, value, sub }) => (
-              <div key={label} className="card flex gap-4 p-5">
-                <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center shrink-0">
-                  <Icon className="w-4.5 h-4.5 text-accent" />
-                </div>
-                <div>
-                  <p className="text-[10px] font-semibold text-subtle uppercase tracking-widest mb-0.5">{label}</p>
-                  <p className="text-sm font-semibold text-text">{value}</p>
-                  <p className="text-xs text-muted mt-0.5">{sub}</p>
-                </div>
-              </div>
-            ))}
+        {/* Contact method cards — 2×2 grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+          {siteConfig.contactMethods.map((method, i) => (
+            <ContactCard key={method.label} method={method} index={i} />
+          ))}
+        </div>
 
-            <div className="card p-5">
-              <p className="text-[10px] font-semibold text-subtle uppercase tracking-widest mb-4">Follow Us</p>
-              <div className="flex gap-2.5">
-                {siteConfig.social.map((s) => {
-                  const Icon = LucideIcons[s.icon];
-                  return (
-                    <a
-                      key={s.label}
-                      href={s.href}
-                      aria-label={s.label}
-                      className="w-9 h-9 rounded-lg border border-border bg-surface-2 flex items-center justify-center text-muted hover:text-accent hover:border-accent/40 hover:bg-accent/8 transition-all duration-200"
-                    >
-                      {Icon && <Icon className="w-4 h-4" />}
-                    </a>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-
-          {/* Form */}
-          <div className="lg:col-span-3 card p-6 sm:p-8">
-            {sent ? (
-              <div className="h-full flex flex-col items-center justify-center text-center py-10">
-                <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center mb-4">
-                  <Send className="w-6 h-6 text-accent" />
-                </div>
-                <h3 className="text-xl font-bold text-text mb-2">Message Sent!</h3>
-                <p className="text-muted text-sm max-w-xs">We'll get back to you within 24 hours.</p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <Input label="Full Name" name="name" type="text" placeholder="John Smith" value={form.name} onChange={handleChange} required />
-                  <Input label="Email Address" name="email" type="email" placeholder="john@company.com" value={form.email} onChange={handleChange} required />
-                </div>
-                <Input label="Company (optional)" name="company" type="text" placeholder="Your Company" value={form.company} onChange={handleChange} />
-                <Textarea label="Message" name="message" placeholder="Tell us about your project..." value={form.message} onChange={handleChange} required />
-                <Button type="submit" size="lg" className="w-full sm:w-auto sm:self-start">
-                  Send Message
-                  <Send className="w-4 h-4" />
-                </Button>
-              </form>
-            )}
+        {/* Social links */}
+        <div className="card p-6">
+          <p className="text-xs font-bold text-subtle uppercase tracking-widest mb-5 text-center">Follow Our Journey</p>
+          <div className="flex items-center justify-center gap-3 flex-wrap">
+            {siteConfig.social.map((s) => {
+              const Icon = LucideIcons[s.icon];
+              return (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl border border-border bg-surface-2/50 text-sm font-medium text-muted hover:text-accent hover:border-accent/40 hover:bg-accent/8 transition-all duration-200"
+                >
+                  {Icon && <Icon className="w-4 h-4" />}
+                  {s.label}
+                </a>
+              );
+            })}
           </div>
         </div>
       </div>
