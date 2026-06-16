@@ -1,28 +1,17 @@
-import { useState } from 'react';
-import { Zap, ArrowRight } from 'lucide-react';
+import { Zap } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import { siteConfig } from '../../config';
-import Button from '../ui/Button';
-import Input from '../ui/Input';
 
 export default function Footer() {
-  const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
-
   const handleNav = (href) => {
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleSubscribe = (e) => {
-    e.preventDefault();
-    if (email) setSubscribed(true);
-  };
-
   return (
     <footer className="border-t border-border bg-surface pt-14 pb-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 mb-12">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
@@ -80,24 +69,6 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
-
-          {/* Newsletter */}
-          <div>
-            <h4 className="text-sm font-semibold text-text mb-2 tracking-wide">Stay Updated</h4>
-            <p className="text-sm text-muted mb-4 leading-relaxed">
-              Get the latest news and updates in your inbox.
-            </p>
-            {subscribed ? (
-              <p className="text-sm text-accent font-semibold">Thanks for subscribing!</p>
-            ) : (
-              <form onSubmit={handleSubscribe} className="flex flex-col gap-2">
-                <Input type="email" placeholder="your@email.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                <Button type="submit" size="sm">
-                  Subscribe <ArrowRight className="w-3.5 h-3.5" />
-                </Button>
-              </form>
-            )}
           </div>
         </div>
 

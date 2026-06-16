@@ -1,5 +1,5 @@
 import * as Icons from 'lucide-react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Layers } from 'lucide-react';
 import { siteConfig } from '../../config';
 import { useReveal } from '../../hooks/useReveal';
 import SectionHeader from '../ui/SectionHeader';
@@ -37,6 +37,7 @@ export default function Services() {
         <div ref={ref} className={['reveal', visible ? 'visible' : ''].join(' ')}>
           <SectionHeader
             badge="Our Services"
+            badgeIcon={Layers}
             title="Comprehensive Digital Solutions"
             subtitle="We deliver end-to-end software services that transform businesses and drive innovation."
           />

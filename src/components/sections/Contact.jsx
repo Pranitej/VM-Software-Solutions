@@ -1,4 +1,4 @@
-import { ArrowUpRight, Phone } from 'lucide-react';
+import { ArrowUpRight, Phone, MessageSquare } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import { siteConfig } from '../../config';
 import { useReveal } from '../../hooks/useReveal';
@@ -88,6 +88,7 @@ export default function Contact() {
         <div ref={ref} className={['reveal', visible ? 'visible' : ''].join(' ')}>
           <SectionHeader
             badge="Get In Touch"
+            badgeIcon={MessageSquare}
             title="Let's Build Together"
             subtitle="Reach out through any channel below — we'd love to hear about your project."
           />
