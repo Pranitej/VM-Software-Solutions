@@ -2,9 +2,9 @@ import Badge from './Badge';
 
 export default function SectionHeader({ badge, title, subtitle, centered = true, className = '' }) {
   return (
-    <div className={['mb-16', centered ? 'text-center' : '', className].join(' ')}>
+    <div className={['mb-14', centered ? 'text-center' : '', className].join(' ')}>
       {badge && (
-        <Badge className="mb-4">
+        <Badge className="mb-4 inline-flex">
           {badge}
         </Badge>
       )}
@@ -12,7 +12,7 @@ export default function SectionHeader({ badge, title, subtitle, centered = true,
         {title}
       </h2>
       {subtitle && (
-        <p className="text-muted text-lg max-w-2xl mx-auto leading-relaxed">
+        <p className={['text-muted text-base sm:text-lg leading-relaxed', centered ? 'max-w-2xl mx-auto' : ''].join(' ')}>
           {subtitle}
         </p>
       )}
