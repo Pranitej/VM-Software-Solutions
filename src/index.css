@@ -7,34 +7,34 @@
 ──────────────────────────────────────────────────────────────────── */
 :root {
   color-scheme: light;
-  --bg:          #F0EAFF;
+  --bg:          #F8FAFC;
   --surface:     #FFFFFF;
-  --surface-2:   #E8DEFF;
-  --border-c:    #D8CCFF;
-  --accent:      #7C3AED;
-  --accent-l:    #9061F9;
-  --text:        #1A0845;
-  --muted:       #5E4F80;
-  --subtle:      #9385B0;
-  --ring:        rgba(124, 58, 237, 0.25);
-  --card-shadow: 0 1px 3px rgba(26,8,69,.05), 0 8px 24px rgba(26,8,69,.08);
-  --card-hover:  0 4px 32px rgba(124,58,237,.16);
+  --surface-2:   #F1F5F9;
+  --border-c:    #E2E8F0;
+  --accent:      #4F46E5;
+  --accent-l:    #6366F1;
+  --text:        #0F172A;
+  --muted:       #475569;
+  --subtle:      #94A3B8;
+  --ring:        rgba(79, 70, 229, 0.18);
+  --card-shadow: 0 1px 3px rgba(15,23,42,.04), 0 4px 20px rgba(15,23,42,.07);
+  --card-hover:  0 8px 32px rgba(79,70,229,.13);
 }
 
 [data-theme="dark"] {
   color-scheme: dark;
-  --bg:          #07030F;
-  --surface:     #100820;
-  --surface-2:   #1A1030;
-  --border-c:    #2E1E50;
-  --accent:      #9061F9;
-  --accent-l:    #A78BFA;
-  --text:        #EDE8FF;
-  --muted:       #B0A0D8;
-  --subtle:      #6E5F90;
-  --ring:        rgba(144, 97, 249, 0.3);
+  --bg:          #020817;
+  --surface:     #0F172A;
+  --surface-2:   #1E293B;
+  --border-c:    #1E293B;
+  --accent:      #6366F1;
+  --accent-l:    #818CF8;
+  --text:        #F1F5F9;
+  --muted:       #94A3B8;
+  --subtle:      #475569;
+  --ring:        rgba(99, 102, 241, 0.22);
   --card-shadow: none;
-  --card-hover:  0 4px 32px rgba(144,97,249,.2);
+  --card-hover:  0 8px 32px rgba(99,102,241,.16);
 }
 
 /* ─── Tailwind color tokens (backed by CSS vars → runtime theming) ── */
@@ -114,7 +114,7 @@
 
   /* Gradient heading text */
   .gradient-text {
-    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-l) 60%, #C4B5FD 100%);
+    background: linear-gradient(135deg, #4F46E5 0%, #6366F1 45%, #818CF8 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
