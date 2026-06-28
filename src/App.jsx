@@ -11,33 +11,12 @@ export default function App() {
   const { theme, toggle } = useTheme();
 
   return (
-    <div className="min-h-screen bg-base text-text">
-      {/*
-        Fixed ambient blobs — the glass cards blur these into a liquid haze.
-        Opacity is intentionally visible (~14-20%) so the backdrop-filter
-        has real colour to process; without this glass looks flat/grey.
-      */}
-      <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden" aria-hidden="true">
-        <div
-          className="ambient-blob absolute -top-40 -left-20 w-[800px] h-[700px] rounded-full opacity-[0.18]"
-          style={{ background: 'radial-gradient(circle at 40% 40%, var(--accent) 0%, transparent 60%)' }}
-        />
-        <div
-          className="ambient-blob absolute top-1/4 right-0 w-[700px] h-[600px] rounded-full opacity-[0.14]"
-          style={{ background: 'radial-gradient(circle at 60% 50%, var(--accent-l) 0%, transparent 60%)' }}
-        />
-        <div
-          className="ambient-blob absolute top-2/3 left-1/4 w-[600px] h-[500px] rounded-full opacity-[0.12]"
-          style={{ background: 'radial-gradient(circle at 50% 50%, var(--accent) 0%, transparent 60%)' }}
-        />
-        <div
-          className="ambient-blob absolute bottom-0 right-1/4 w-[500px] h-[400px] rounded-full opacity-[0.10]"
-          style={{ background: 'radial-gradient(circle at 50% 60%, var(--accent-l) 0%, transparent 60%)' }}
-        />
-      </div>
+    <div className="min-h-screen bg-base text-text relative">
+      {/* Film-grain texture across the whole page — adds tactile, premium depth */}
+      <div className="grain" aria-hidden="true" />
 
       <Header theme={theme} onToggleTheme={toggle} />
-      <main>
+      <main className="relative z-[2]">
         <Hero />
         <Services />
         <Portfolio />

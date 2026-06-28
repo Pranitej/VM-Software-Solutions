@@ -1,14 +1,15 @@
 export default function Badge({ children, icon: Icon, variant = 'default', className = '' }) {
   const variants = {
-    default: 'glass-pill text-accent',
-    subtle:  'glass-pill text-muted',
-    solid:   'bg-accent text-white',
+    default: 'pill text-accent',
+    subtle:  'pill text-muted',
+    solid:   'bg-accent text-white border border-accent',
+    ink:     'bg-line text-[var(--bg)]',
   };
 
   return (
     <span
       className={[
-        'inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide',
+        'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[0.7rem] font-display font-semibold tracking-wide',
         variants[variant],
         className,
       ].join(' ')}

@@ -1,8 +1,7 @@
-import { ExternalLink, Briefcase } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { siteConfig } from '../../config';
 import { useReveal } from '../../hooks/useReveal';
 import SectionHeader from '../ui/SectionHeader';
-import Badge from '../ui/Badge';
 import Button from '../ui/Button';
 
 function ProjectCard({ project, index }) {
@@ -11,43 +10,53 @@ function ProjectCard({ project, index }) {
   return (
     <div
       ref={ref}
-      className={['reveal card group overflow-hidden', visible ? 'visible' : ''].join(' ')}
+      className={['reveal card group overflow-hidden flex flex-col', visible ? 'visible' : ''].join(' ')}
       style={{ transitionDelay: `${index * 90}ms` }}
     >
-      {/* Accent top stripe */}
-      <div className="h-1 bg-gradient-to-r from-accent to-accent-light opacity-80 group-hover:opacity-100 transition-opacity" />
+      <div className="p-7 sm:p-9 flex flex-col flex-1">
+        {/* Header */}
+        <div className="flex items-start justify-between gap-4 mb-6">
+          <div>
+            <span className="font-display text-[0.72rem] font-semibold tracking-[0.16em] uppercase text-accent">
+              {project.category}
+            </span>
+            <h3 className="font-display text-xl sm:text-2xl font-semibold text-text mt-2 tracking-tight group-hover:text-accent transition-colors">
+              {project.title}
+            </h3>
+          </div>
+          <span className="font-display text-3xl sm:text-4xl font-medium text-border tabular-nums leading-none select-none group-hover:text-accent/30 transition-colors">
+            {String(index + 1).padStart(2, '0')}
+          </span>
+        </div>
 
-      <div className="p-6 sm:p-7">
-        <Badge variant="subtle" className="mb-4">
-          {project.category}
-        </Badge>
-
-        <h3 className="text-lg font-bold text-text mb-2.5 tracking-tight group-hover:text-accent transition-colors">
-          {project.title}
-        </h3>
-
-        <p className="text-sm text-muted leading-relaxed mb-5">
+        <p className="text-sm text-muted leading-relaxed mb-7">
           {project.description}
         </p>
 
-        {/* Impact stats */}
-        <div className="flex flex-wrap gap-2 mb-5">
+        {/* Impact stats — divided row */}
+        <div className="grid grid-cols-3 gap-2 mb-7 mt-auto">
           {project.stats.map((stat) => (
-            <span key={stat} className="text-xs font-semibold text-accent bg-accent/10 px-2.5 py-1 rounded-lg">
-              {stat}
-            </span>
+            <div key={stat} className="border-l border-border pl-3 py-0.5">
+              <span className="block font-display text-[0.82rem] font-semibold text-text leading-snug">{stat}</span>
+            </div>
           ))}
         </div>
 
         {/* Tech stack */}
-        <div className="flex flex-wrap gap-1.5 pt-4 border-t border-border">
+        <div className="flex flex-wrap gap-1.5 pt-5 border-t border-border">
           {project.tech.map((tech) => (
-            <span key={tech} className="text-xs font-medium text-subtle bg-surface-2 px-2.5 py-1 rounded-lg">
+            <span key={tech} className="text-[0.72rem] font-medium text-subtle border border-border px-2.5 py-1 rounded-full">
               {tech}
             </span>
           ))}
         </div>
       </div>
+
+      {/* Footer bar */}
+      <button className="flex items-center justify-between px-7 sm:px-9 py-4 border-t border-border text-sm font-display font-medium text-muted group-hover:text-accent group-hover:bg-accent/5 transition-colors cursor-pointer">
+        View case study
+        <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+      </button>
     </div>
   );
 }
@@ -56,14 +65,13 @@ export default function Portfolio() {
   const { ref, visible } = useReveal(0.1);
 
   return (
-    <section id="portfolio" className="py-24 sm:py-28 px-4 sm:px-6 lg:px-8">
+    <section id="portfolio" className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div ref={ref} className={['reveal', visible ? 'visible' : ''].join(' ')}>
           <SectionHeader
-            badge="Our Work"
-            badgeIcon={Briefcase}
-            title="Featured Projects"
-            subtitle="Explore our portfolio of innovative software solutions that deliver real business value."
+            badge="Selected work"
+            title="Products we've shipped"
+            subtitle="A few of the platforms and tools we've designed, built and scaled with our clients."
           />
         </div>
 
@@ -73,10 +81,10 @@ export default function Portfolio() {
           ))}
         </div>
 
-        <div className="mt-10 text-center">
+        <div className="mt-12 text-center">
           <Button variant="outline">
-            View All Projects
-            <ExternalLink className="w-4 h-4" />
+            View all projects
+            <ArrowUpRight className="w-4 h-4" />
           </Button>
         </div>
       </div>

@@ -2,9 +2,9 @@ export const siteConfig = {
   company: {
     name: "VM Software Solutions",
     tagline: "Enterprise Software Solutions That Scale",
-    heroBadge: "Award-Winning Software Studio",
-    description: "We craft cutting-edge software solutions that drive digital transformation, optimize operations, and accelerate business growth for enterprises worldwide.",
-    shortDescription: "We transform businesses with cutting-edge software solutions, delivering innovation and excellence.",
+    heroBadge: "Engineering studio · Est. 2018",
+    description: "We are a senior engineering studio. We design, build and ship the software that runs ambitious businesses — from enterprise platforms to cloud infrastructure and applied AI.",
+    shortDescription: "A senior engineering studio designing and shipping software that ambitious businesses run on.",
     founded: "2018",
     headquarters: "San Francisco, CA",
     email: "contact@vmsolutions.com",

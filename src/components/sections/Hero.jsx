@@ -1,6 +1,36 @@
-import { ArrowRight, ChevronDown } from 'lucide-react';
+import { ArrowUpRight, ArrowDown } from 'lucide-react';
 import { siteConfig } from '../../config';
+import { useCountUp } from '../../hooks/useCountUp';
 import Button from '../ui/Button';
+
+function Stat({ stat }) {
+  const { ref, value } = useCountUp(stat.value);
+  return (
+    <div ref={ref} className="flex flex-col">
+      <span className="font-display text-2xl sm:text-[1.75rem] font-semibold text-text leading-none tabular-nums">
+        {value}
+      </span>
+      <span className="text-[0.72rem] text-subtle font-medium tracking-wide mt-1.5 leading-tight">
+        {stat.label}
+      </span>
+    </div>
+  );
+}
+
+function Marquee() {
+  const items = [...siteConfig.trustedBy, ...siteConfig.trustedBy];
+  return (
+    <div className="relative overflow-hidden py-1 [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)]">
+      <div className="marquee-track animate-marquee gap-12 pr-12">
+        {items.map((c, i) => (
+          <span key={i} className="font-display text-lg font-medium text-subtle whitespace-nowrap shrink-0">
+            {c}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function Hero() {
   const handleNav = (href) => {
@@ -9,107 +39,94 @@ export default function Hero() {
   };
 
   return (
-    <section
-      id="home"
-      className="relative flex flex-col overflow-hidden px-4 sm:px-6 lg:px-8 pt-28 pb-16 sm:pt-36 sm:pb-20"
-    >
-      {/* Hero-specific gradient boost — amplifies the global blobs in this section */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(ellipse 80% 60% at 50% -5%, color-mix(in oklab, var(--accent) 18%, transparent), transparent)',
-        }}
-      />
-
-      {/* Dot grid — subtle texture for glass to distort */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.055]"
-        style={{
-          backgroundImage: 'radial-gradient(var(--accent) 1px, transparent 1px)',
-          backgroundSize: '28px 28px',
-        }}
-      />
-
-      {/* Main content */}
-      <div className="relative z-10 max-w-4xl mx-auto w-full text-center flex flex-col items-center">
-        {/* Badge */}
-        <div className="animate-fade-in glass-pill inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-accent text-xs font-semibold tracking-widest uppercase mb-8 whitespace-nowrap">
-          <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse shrink-0" />
-          {siteConfig.company.heroBadge}
-        </div>
-
-        {/* Headline */}
-        <h1
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.25rem] font-black tracking-tight leading-[1.1] mb-6 animate-fade-up"
-          style={{ animationDelay: '0.08s' }}
-        >
-          Enterprise Software
-          <br />
-          <span className="gradient-text">Solutions That Scale</span>
-        </h1>
-
-        {/* Subtitle */}
-        <p
-          className="text-muted text-base sm:text-lg leading-relaxed max-w-2xl mb-10 animate-fade-up"
-          style={{ animationDelay: '0.16s' }}
-        >
-          {siteConfig.company.description}
-        </p>
-
-        {/* CTA */}
+    <section id="home" className="relative overflow-hidden px-4 sm:px-6 lg:px-8 pt-32 pb-12 sm:pt-40 sm:pb-16">
+      {/* Decorative animated mesh */}
+      <div className="absolute inset-0 -z-10 pointer-events-none" aria-hidden="true">
         <div
-          className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full sm:w-auto mb-16 animate-fade-up"
-          style={{ animationDelay: '0.24s' }}
-        >
-          <Button size="lg" className="w-full sm:w-auto" onClick={() => handleNav('#contact')}>
-            Start Your Project
-            <ArrowRight className="w-4 h-4" />
-          </Button>
-          <Button size="lg" variant="outline" className="w-full sm:w-auto" onClick={() => handleNav('#portfolio')}>
-            View Our Work
-          </Button>
-        </div>
-
-        {/* Stats — wrapped in glass card */}
+          className="absolute -top-32 -right-20 w-[640px] h-[640px] rounded-full opacity-50 animate-float"
+          style={{ background: 'radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%)' }}
+        />
         <div
-          className="card w-full max-w-2xl mx-auto px-6 py-6 sm:px-8 animate-fade-up"
-          style={{ animationDelay: '0.32s' }}
-        >
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-            {siteConfig.stats.map((stat) => (
-              <div key={stat.label} className="flex flex-col gap-1 text-center">
-                <span className="text-2xl sm:text-3xl font-black text-text">{stat.value}</span>
-                <span className="text-xs text-subtle font-medium tracking-wide leading-tight">{stat.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+          className="absolute top-40 -left-32 w-[520px] h-[520px] rounded-full opacity-40 animate-float"
+          style={{ background: 'radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent-2) 24%, transparent), transparent 60%)', animationDelay: '2s' }}
+        />
+        {/* Faint blueprint grid */}
+        <div
+          className="absolute inset-0 opacity-[0.5]"
+          style={{
+            backgroundImage:
+              'linear-gradient(var(--border-c) 1px, transparent 1px), linear-gradient(90deg, var(--border-c) 1px, transparent 1px)',
+            backgroundSize: '64px 64px',
+            maskImage: 'radial-gradient(ellipse 80% 60% at 50% 30%, #000 30%, transparent 75%)',
+            WebkitMaskImage: 'radial-gradient(ellipse 80% 60% at 50% 30%, #000 30%, transparent 75%)',
+          }}
+        />
       </div>
 
-      {/* Trusted by — glass card */}
-      <div className="relative z-10 mt-8 w-full max-w-3xl mx-auto animate-fade-in" style={{ animationDelay: '0.48s' }}>
-        <div className="card px-6 py-5">
-          <p className="text-center text-subtle text-[10px] font-bold tracking-widest uppercase mb-4">
-            Trusted by industry leaders
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-x-7 gap-y-2 sm:gap-x-10">
-            {siteConfig.trustedBy.map((company) => (
-              <span key={company} className="text-subtle font-bold text-sm tracking-wide hover:text-muted transition-colors">
-                {company}
+      <div className="max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-8 items-end">
+          {/* Headline column */}
+          <div className="lg:col-span-8">
+            <span className="eyebrow mb-7 animate-fade-in">{siteConfig.company.heroBadge}</span>
+
+            <h1 className="font-display font-semibold tracking-tight text-text text-[2.6rem] leading-[1.04] sm:text-6xl lg:text-[5.1rem] lg:leading-[0.98]">
+              <span className="block animate-fade-up" style={{ animationDelay: '0.05s' }}>
+                We build the
               </span>
-            ))}
+              <span className="block animate-fade-up" style={{ animationDelay: '0.13s' }}>
+                software your business
+              </span>
+              <span className="block animate-fade-up" style={{ animationDelay: '0.21s' }}>
+                <span className="font-serif-accent shimmer-text">actually</span> runs on.
+              </span>
+            </h1>
+
+            <p
+              className="text-muted text-base sm:text-lg leading-relaxed max-w-xl mt-7 animate-fade-up"
+              style={{ animationDelay: '0.3s' }}
+            >
+              {siteConfig.company.description}
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-3 mt-9 animate-fade-up" style={{ animationDelay: '0.38s' }}>
+              <Button size="lg" onClick={() => handleNav('#contact')}>
+                Start your project
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+              </Button>
+              <Button size="lg" variant="outline" onClick={() => handleNav('#portfolio')}>
+                See our work
+              </Button>
+            </div>
           </div>
+
+          {/* Stat card column */}
+          <div className="lg:col-span-4 animate-fade-up" style={{ animationDelay: '0.45s' }}>
+            <div className="card-ink p-7 sm:p-8">
+              <p className="eyebrow mb-6 text-[0.66rem]">By the numbers</p>
+              <div className="grid grid-cols-2 gap-x-6 gap-y-7">
+                {siteConfig.stats.map((stat) => (
+                  <Stat key={stat.label} stat={stat} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Trusted-by marquee */}
+        <div className="mt-16 sm:mt-20 pt-8 border-t border-border animate-fade-in" style={{ animationDelay: '0.6s' }}>
+          <p className="text-[0.66rem] font-display font-semibold tracking-[0.22em] uppercase text-subtle mb-5">
+            Trusted by teams at
+          </p>
+          <Marquee />
         </div>
       </div>
 
-      {/* Scroll indicator — desktop only */}
       <button
         onClick={() => handleNav('#services')}
-        className="hidden lg:flex absolute bottom-6 left-1/2 -translate-x-1/2 flex-col items-center gap-1.5 text-subtle hover:text-muted transition-colors cursor-pointer"
+        className="hidden lg:flex items-center gap-2 mt-12 text-subtle hover:text-accent transition-colors cursor-pointer mx-auto group/scroll"
       >
-        <span className="text-[9px] tracking-widest uppercase font-medium">Scroll</span>
-        <ChevronDown className="w-4 h-4 animate-bounce" />
+        <span className="text-[0.7rem] tracking-widest uppercase font-display">Scroll to explore</span>
+        <ArrowDown className="w-4 h-4 group-hover/scroll:translate-y-1 transition-transform" />
       </button>
     </section>
   );
